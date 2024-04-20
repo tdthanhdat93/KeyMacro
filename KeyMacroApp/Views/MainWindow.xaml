@@ -1,0 +1,26 @@
+﻿<Window
+    x:Class="KeyMacroApp.Views.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:KeyMacroApp"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prism="http://prismlibrary.com/"
+    xmlns:viewModels="clr-namespace:KeyMacroApp.ViewModels"
+    xmlns:views="clr-namespace:KeyMacroApp.Views"
+    Title="KeyMacroApp"
+    d:DataContext="{d:DesignInstance Type=viewModels:MainWindowViewModel}"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    SizeToContent="WidthAndHeight"
+    mc:Ignorable="d">
+    <Window.Resources>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Width" Value="80" />
+            <Setter Property="Height" Value="30" />
+            <Setter Property="Margin" Value="10" />
+        </Style>
+    </Window.Resources>
+    <Grid Width="Auto" Height="Auto">
+        <views:MacroView />
+    </Grid>
+</Window>

@@ -1,0 +1,121 @@
+﻿<UserControl
+    x:Class="KeyMacroApp.Views.MacroView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:local="clr-namespace:KeyMacroApp.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="clr-namespace:KeyMacroApp.Models"
+    xmlns:prism="http://prismlibrary.com/"
+    xmlns:viewmodels="clr-namespace:KeyMacroApp.ViewModels"
+    d:DataContext="{d:DesignInstance Type=viewmodels:MacroViewModel}"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    mc:Ignorable="d">
+    <UserControl.Resources />
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <GroupBox
+            Grid.Column="0"
+            Padding="5"
+            Header="List macro">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <DockPanel LastChildFill="False">
+                    <Button
+                        Margin="5"
+                        Padding="3"
+                        Command="{Binding AddMacroCommand}"
+                        Content="Add Macro"
+                        DockPanel.Dock="Right" />
+                    <Button
+                        Command="{Binding AddGroupCommand}"
+                        Content="Add Group"
+                        DockPanel.Dock="Right" />
+                </DockPanel>
+                <TreeView Grid.Row="1">
+                    <TreeView.Resources>
+                        <HierarchicalDataTemplate DataType="{x:Type models:MacroGroup}" ItemsSource="{Binding Items}">
+                            <TextBlock Text="{Binding Name}" />
+                        </HierarchicalDataTemplate>
+                        <DataTemplate DataType="{x:Type models:MacroInfo}">
+                            <TextBlock Text="{Binding Name}" />
+                        </DataTemplate>
+
+                        <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="{DynamicResource {x:Static SystemColors.HighlightColorKey}}" />
+                        <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}" Color="{DynamicResource {x:Static SystemColors.HighlightTextColorKey}}" />
+                    </TreeView.Resources>
+                    <TreeView.ItemContainerStyle>
+                        <Style TargetType="TreeViewItem">
+                            <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+                        </Style>
+                    </TreeView.ItemContainerStyle>
+
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectedItemChanged">
+                            <i:InvokeCommandAction Command="{Binding SelectMacroCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TreeView}, Path=SelectedItem}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <TreeView.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Command="{Binding AddMacroCommand}" Header="New Macro" />
+                        </ContextMenu>
+                    </TreeView.ContextMenu>
+                </TreeView>
+            </Grid>
+        </GroupBox>
+
+        <GroupBox
+            Grid.Column="1"
+            Margin="15,0,0,0"
+            Padding="5"
+            Header="Macro Key Hook">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <StackPanel
+                    Grid.Row="0"
+                    Width="300"
+                    Orientation="Vertical">
+                    <WrapPanel>
+                        <ToggleButton
+                            Margin="5"
+                            HorizontalAlignment="Left"
+                            Content="Record Key" />
+                    </WrapPanel>
+                    <ListBox Height="150" ItemsSource="{Binding SelectedMacro.KeyHooks}">
+                        <ListBox.Resources>
+                            <DataTemplate DataType="{x:Type models:KeyHook}">
+                                <WrapPanel>
+                                    <TextBlock Text="{Binding KeyCode, StringFormat=0x{0:x2}}" />
+                                    <TextBlock Margin="5,0,0,0" Text="{Binding State}" />
+                                </WrapPanel>
+                            </DataTemplate>
+                        </ListBox.Resources>
+                    </ListBox>
+                </StackPanel>
+                <StackPanel Grid.Row="1" Margin="0,15,0,0">
+                    <Button
+                        Margin="5"
+                        HorizontalAlignment="Left"
+                        Content="Replay" />
+                    <TextBox
+                        x:Name="txtbxReplay"
+                        Height="150"
+                        VerticalScrollBarVisibility="Auto" />
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+    </Grid>
+</UserControl>

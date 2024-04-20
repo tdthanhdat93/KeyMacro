@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "KeyMacroApp": {
+      "commandName": "Project",
+      "nativeDebugging": true
+    }
+  }
+}

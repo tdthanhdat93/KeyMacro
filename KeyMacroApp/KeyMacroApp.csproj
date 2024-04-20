@@ -1,0 +1,64 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+    <OutputPath>..\x64\Debug\</OutputPath>
+    <ApplicationIcon>Resources\app.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Common\**" />
+    <Compile Remove="Converter\**" />
+    <Compile Remove="Resources\**" />
+    <Compile Remove="Services\**" />
+    <Compile Remove="UIControl\**" />
+    <EmbeddedResource Remove="Common\**" />
+    <EmbeddedResource Remove="Converter\**" />
+    <EmbeddedResource Remove="Resources\**" />
+    <EmbeddedResource Remove="Services\**" />
+    <EmbeddedResource Remove="UIControl\**" />
+    <None Remove="Common\**" />
+    <None Remove="Converter\**" />
+    <None Remove="Resources\**" />
+    <None Remove="Services\**" />
+    <None Remove="UIControl\**" />
+    <Page Remove="Common\**" />
+    <Page Remove="Converter\**" />
+    <Page Remove="Resources\**" />
+    <Page Remove="Services\**" />
+    <Page Remove="UIControl\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Models\BindKeyInfo.cs" />
+    <Compile Remove="ViewModels\BindKeyDialogViewModel.cs" />
+    <Compile Remove="ViewModels\BindKeyViewModel.cs" />
+    <Compile Remove="ViewModels\ProfileViewModel.cs" />
+    <Compile Remove="Views\BindKeyDialog.xaml.cs" />
+    <Compile Remove="Views\BindKeyView.xaml.cs" />
+    <Compile Remove="Views\ProfileView.xaml.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Remove="Views\BindKeyDialog.xaml" />
+    <Page Remove="Views\BindKeyView.xaml" />
+    <Page Remove="Views\ProfileView.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Common\XmlHelper.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.31" />
+    <PackageReference Include="Prism.Unity" Version="8.1.97" />
+    <PackageReference Include="Prism.Wpf" Version="8.1.97" />
+  </ItemGroup>
+
+</Project>
