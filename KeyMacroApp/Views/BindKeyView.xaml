@@ -309,7 +309,12 @@
                         <Button Style="{StaticResource Keycap_1.25u}" Tag="0xA2" />
                     </Border>
                     <Border>
-                        <Button Style="{StaticResource Keycap_1.25u}" Tag="0x5B" />
+                        <Button Style="{StaticResource Keycap_1.25u}" Tag="0x5B">
+                            <Image
+                                Width="24"
+                                Height="24"
+                                Source="..\Resources\window.ico" />
+                        </Button>
                     </Border>
                     <Border>
                         <Button Style="{StaticResource Keycap_1.25u}" Tag="0xA4" />
@@ -327,7 +332,12 @@
                             Tag="" />
                     </Border>
                     <Border>
-                        <Button Style="{StaticResource Keycap_1.25u}" Tag="0x5D" />
+                        <Button Style="{StaticResource Keycap_1.25u}" Tag="0x5D">
+                            <Image
+                                Width="24"
+                                Height="24"
+                                Source="..\Resources\menu.ico" />
+                        </Button>
                     </Border>
                     <Border>
                         <Button Style="{StaticResource Keycap_1.25u}" Tag="0xA3" />
@@ -411,6 +421,20 @@
             <DockPanel Margin="10">
                 <TextBlock DockPanel.Dock="Top" Text="Test" />
                 <TextBox Height="50" />
+            </DockPanel>
+        </Grid>
+        <Grid Grid.Row="2">
+            <DockPanel
+                Margin="10"
+                VerticalAlignment="Top"
+                LastChildFill="False">
+                <local:ProfileView DataContext="{Binding ProfileViewModel}" DockPanel.Dock="Right" />
+                <Button
+                    Margin="10,0"
+                    VerticalAlignment="Top"
+                    Command="{Binding ResetCommand}"
+                    Content="Reset"
+                    DockPanel.Dock="Right" />
             </DockPanel>
         </Grid>
     </Grid>

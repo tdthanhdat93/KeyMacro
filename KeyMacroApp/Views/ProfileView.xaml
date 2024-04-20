@@ -1,0 +1,100 @@
+﻿<UserControl
+    x:Class="KeyMacroApp.Views.ProfileView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converter="clr-namespace:KeyMacroApp.Converter"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:KeyMacroApp.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="clr-namespace:KeyMacroApp.Models"
+    xmlns:uicontrol="clr-namespace:KeyMacroApp.UIControl"
+    xmlns:viewmodels="clr-namespace:KeyMacroApp.ViewModels"
+    d:DataContext="{d:DesignInstance Type=viewmodels:ProfileViewModel}"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <converter:SelectProfileConverter x:Key="SelectProfileConverter" />
+        <DataTemplate x:Key="templateProfile" DataType="{x:Type models:ProfileBindKey}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <uicontrol:EditableTextBlock
+                    Grid.Column="0"
+                    VerticalAlignment="Center"
+                    IsEditable="{Binding IsInEditMode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
+                <Button
+                    Grid.Column="1"
+                    Width="24"
+                    Height="24"
+                    Margin="2"
+                    Command="{Binding RelativeSource={RelativeSource AncestorType=ListBox}, Path=DataContext.RenameCommand}"
+                    CommandParameter="{Binding}">
+                    <Image Source="..\Resources\edit.ico" />
+                </Button>
+                <Button
+                    Grid.Column="2"
+                    Width="24"
+                    Height="24"
+                    Margin="2"
+                    Command="{Binding RelativeSource={RelativeSource AncestorType=ListBox}, Path=DataContext.DeleteCommand}"
+                    CommandParameter="{Binding}">
+                    <Image Source="..\Resources\delete.ico" />
+                </Button>
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="templateDummyProfile">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock
+                    Grid.Column="0"
+                    VerticalAlignment="Center"
+                    Text="&lt;None&gt;" />
+            </Grid>
+        </DataTemplate>
+    </UserControl.Resources>
+    <Grid>
+        <WrapPanel>
+            <Expander Width="200" Header="{Binding ProfileName}">
+                <Border Height="200" BorderThickness="1">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Button
+                            Grid.Row="0"
+                            Width="Auto"
+                            Margin="2"
+                            HorizontalAlignment="Stretch"
+                            Command="{Binding AddCommand}"
+                            Content="Add" />
+                        <ListBox
+                            Grid.Row="1"
+                            HorizontalContentAlignment="Stretch"
+                            ItemTemplate="{StaticResource templateProfile}"
+                            SelectedItem="{Binding SelectedProfile, Converter={StaticResource SelectProfileConverter}}">
+                            <ListBox.Resources>
+                                <CollectionViewSource x:Key="sourceProfiles" Source="{Binding Profiles}" />
+                            </ListBox.Resources>
+                            <ListBox.ItemsSource>
+                                <CompositeCollection>
+                                    <ListBoxItem ContentTemplate="{StaticResource templateDummyProfile}" />
+                                    <CollectionContainer Collection="{Binding Source={StaticResource sourceProfiles}}" />
+                                </CompositeCollection>
+                            </ListBox.ItemsSource>
+                        </ListBox>
+                    </Grid>
+                </Border>
+            </Expander>
+        </WrapPanel>
+    </Grid>
+</UserControl>

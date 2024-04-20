@@ -13,20 +13,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Resources\**" />
-    <EmbeddedResource Remove="Resources\**" />
-    <None Remove="Resources\**" />
-    <Page Remove="Resources\**" />
+    <None Remove="Resources\delete.ico" />
+    <None Remove="Resources\edit.ico" />
+    <None Remove="Resources\menu.ico" />
+    <None Remove="Resources\window.ico" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="Converter\ProfileConverter.cs" />
-    <Compile Remove="ViewModels\ProfileViewModel.cs" />
-    <Compile Remove="Views\ProfileView.xaml.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Page Remove="Views\ProfileView.xaml" />
+    <Content Include="Resources\app.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -37,6 +31,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ServiceKeyHookWrapper\ServiceKeyHookWrapper.vcxproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\delete.ico" />
+    <Resource Include="Resources\edit.ico" />
+    <Resource Include="Resources\menu.ico" />
+    <Resource Include="Resources\window.ico" />
   </ItemGroup>
 
 </Project>
