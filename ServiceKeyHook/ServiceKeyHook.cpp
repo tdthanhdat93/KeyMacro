@@ -28,6 +28,16 @@ SERVICEKEYHOOK_API void __stdcall ServiceKeyHookAPI::StopHook()
 	BOOL bRet = UnhookWindowsHookEx(_hhook);
 }
 
+SERVICEKEYHOOK_API void __stdcall ServiceKeyHookAPI::StartMacro()
+{
+	_bAllowMacro = TRUE;
+}
+
+SERVICEKEYHOOK_API void __stdcall ServiceKeyHookAPI::StopMacro()
+{
+	_bAllowMacro = FALSE;
+}
+
 static LRESULT ServiceKeyHookAPI::KeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
 {
 	if (nCode == HC_ACTION)
@@ -46,7 +56,7 @@ static LRESULT ServiceKeyHookAPI::KeyboardProc(int nCode, WPARAM wParam, LPARAM 
 			return CallNextHookEx(NULL, nCode, wParam, lParam);
 		}
 
-		if (wParam == WM_KEYDOWN && !IsInjectedKey(info->flags))
+		if (wParam == WM_KEYDOWN && _bAllowMacro && !IsInjectedKey(info->flags))
 		{
 			if (InjectKey(info->vkCode))
 			{
@@ -56,6 +66,14 @@ static LRESULT ServiceKeyHookAPI::KeyboardProc(int nCode, WPARAM wParam, LPARAM 
 		}
 	}
 	return CallNextHookEx(NULL, nCode, wParam, lParam);
+}
+
+static void ServiceKeyHookAPI::SetKeyInput(INPUT* pInput, WORD keyCode, DWORD dwFlags)
+{
+	ZeroMemory(pInput, sizeof(INPUT));
+	pInput->type = INPUT_KEYBOARD;
+	pInput->ki.wVk = keyCode;
+	pInput->ki.dwFlags = dwFlags;
 }
 
 static BOOL ServiceKeyHookAPI::IsInjectedKey(DWORD flags)
@@ -93,4 +111,19 @@ SERVICEKEYHOOK_API void __stdcall ServiceKeyHookAPI::ReplayKeys(std::vector<INPU
 	{
 		UINT uSent = SendInput(1, &input, sizeof(INPUT));
 	}
+}
+
+SERVICEKEYHOOK_API void __stdcall ServiceKeyHookAPI::BindKey(DWORD keyCode, std::vector<INPUT>& macro)
+{
+	_mapKeys[keyCode] = macro;
+}
+
+SERVICEKEYHOOK_API void __stdcall ServiceKeyHookAPI::ClearMacroOfKey(DWORD keyCode)
+{
+	_mapKeys.erase(keyCode);
+}
+
+SERVICEKEYHOOK_API void __stdcall ServiceKeyHookAPI::ClearAllMacro(DWORD keyCode)
+{
+	_mapKeys.clear();
 }

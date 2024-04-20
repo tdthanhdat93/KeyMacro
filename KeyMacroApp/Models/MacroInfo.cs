@@ -57,6 +57,14 @@ namespace KeyMacroApp.Models
         [XmlElement]
         public ObservableCollection<KeyHook>? KeyHooks { get => _keyHooks; set => _keyHooks = value; }
 
+        private bool _isInEditMode = false;
+        [XmlIgnore]
+        public bool IsInEditMode
+        {
+            get => _isInEditMode;
+            set => SetProperty(ref _isInEditMode, value);
+        }
+
         private bool _isSelected = false;
         [XmlIgnore]
         public bool IsSelected
@@ -123,6 +131,18 @@ namespace KeyMacroApp.Models
 
             return macroInfo;
         }
+
+        public void Delete()
+        {
+            try
+            {
+                File.Delete(Path);
+            }
+            catch (Exception e)
+            {
+                Debug.Print($"[Error]: MacroInfo.Delete({Path})\n{e}");
+            }
+        }
     }
 
     public class MacroGroup : BindableBase
@@ -153,6 +173,13 @@ namespace KeyMacroApp.Models
         public MacroGroup? Parent { get; set; }
         public ObservableCollection<MacroGroup> SubGroups { get; set; } = new ObservableCollection<MacroGroup>();
         public ObservableCollection<MacroInfo> MacroInfos { get; set; } = new ObservableCollection<MacroInfo>();
+
+        private bool _isInEditMode = false;
+        public bool IsInEditMode
+        {
+            get => _isInEditMode;
+            set => SetProperty(ref _isInEditMode, value);
+        }
 
         private bool _isSelected = false;
         public bool IsSelected
@@ -250,6 +277,49 @@ namespace KeyMacroApp.Models
         private void MacroInfos_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             RaisePropertyChanged(nameof(Items));
+        }
+
+        public void Delete()
+        {
+            try
+            {
+                Directory.Delete(Path, recursive: true);    // Delete dir and all sub dirs
+            }
+            catch (Exception e)
+            {
+                Debug.Print($"[Error]: MacroGroup.Delete({Path})\n{e}");
+            }
+        }
+
+        public MacroInfo? FindMacro(string id)
+        {
+            MacroInfo? macroInfo = null;
+            macroInfo = MacroInfos.FirstOrDefault(info => info.Id == id);
+            if (macroInfo == null)
+            {
+                foreach (var group in SubGroups)
+                {
+                    macroInfo = group.FindMacro(id);
+                    if (macroInfo != null)
+                    {
+                        break;
+                    }
+                }
+            }
+
+            return macroInfo;
+        }
+
+        public void ClearSelectStatus()
+        {
+            foreach (var info in MacroInfos)
+            {
+                info.IsSelected = false;
+            }
+            foreach (var group in SubGroups)
+            {
+                group.ClearSelectStatus();
+            }
         }
     }
 }

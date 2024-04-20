@@ -23,5 +23,10 @@ namespace KeyMacroApp.Common
                 return _macroAllData;
             }
         }
+
+        public static MacroInfo? FindMacro(string id)
+        {
+            return MacroAllData.FindMacro(id);
+        }
     }
 }

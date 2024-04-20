@@ -8,11 +8,12 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="clr-namespace:KeyMacroApp.Models"
     xmlns:prism="http://prismlibrary.com/"
+    xmlns:uicontrol="clr-namespace:KeyMacroApp.UIControl"
     xmlns:viewmodels="clr-namespace:KeyMacroApp.ViewModels"
     d:DataContext="{d:DesignInstance Type=viewmodels:MacroViewModel}"
     d:DesignHeight="450"
     d:DesignWidth="800"
-    prism:ViewModelLocator.AutoWireViewModel="True"
+    prism:ViewModelLocator.AutoWireViewModel="False"
     mc:Ignorable="d">
     <UserControl.Resources />
     <Grid>
@@ -48,10 +49,10 @@
                     PreviewMouseRightButtonDown="TreeView_PreviewMouseRightButtonDown">
                     <TreeView.Resources>
                         <HierarchicalDataTemplate DataType="{x:Type models:MacroGroup}" ItemsSource="{Binding Items}">
-                            <TextBlock Text="{Binding Name}" />
+                            <uicontrol:EditableTextBlock IsEditable="{Binding IsInEditMode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
                         </HierarchicalDataTemplate>
                         <DataTemplate DataType="{x:Type models:MacroInfo}">
-                            <TextBlock Text="{Binding Name}" />
+                            <uicontrol:EditableTextBlock IsEditable="{Binding IsInEditMode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
                         </DataTemplate>
 
                         <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="{DynamicResource {x:Static SystemColors.HighlightColorKey}}" />
@@ -71,6 +72,8 @@
                     <TreeView.ContextMenu>
                         <ContextMenu>
                             <MenuItem Command="{Binding AddMacroCommand}" Header="New Macro" />
+                            <MenuItem Command="{Binding RenameCommand}" Header="Rename" />
+                            <MenuItem Command="{Binding DeleteCommand}" Header="Delete" />
                         </ContextMenu>
                     </TreeView.ContextMenu>
                 </TreeView>
@@ -79,6 +82,7 @@
 
         <GroupBox
             Grid.Column="1"
+            MaxWidth="322"
             Margin="15,0,0,0"
             Padding="5"
             Header="Macro Key Hook">
@@ -121,6 +125,7 @@
                     <TextBox
                         x:Name="txtbxReplay"
                         Height="150"
+                        TextWrapping="Wrap"
                         VerticalScrollBarVisibility="Auto" />
                 </StackPanel>
             </Grid>

@@ -1,0 +1,417 @@
+﻿<UserControl
+    x:Class="KeyMacroApp.Views.BindKeyView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:convert="clr-namespace:KeyMacroApp.Converter"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:KeyMacroApp.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewmodels="clr-namespace:KeyMacroApp.ViewModels"
+    d:DataContext="{d:DesignInstance Type=viewmodels:BindKeyViewModel}"
+    d:DesignHeight="450"
+    d:DesignWidth="1000"
+    mc:Ignorable="d">
+    <UserControl.DataContext>
+        <viewmodels:BindKeyViewModel />
+    </UserControl.DataContext>
+    <UserControl.Resources>
+        <convert:KeyCodeConverter x:Key="KeyCodeConverter" />
+        <Style TargetType="{x:Type Border}">
+            <Setter Property="Width" Value="Auto" />
+            <Setter Property="Height" Value="Auto" />
+            <Setter Property="Background" Value="Azure" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="BorderBrush" Value="Black" />
+        </Style>
+        <Style x:Key="StandardKeycap" TargetType="{x:Type Button}">
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="VerticalAlignment" Value="Stretch" />
+            <Setter Property="Height" Value="48" />
+            <Setter Property="Padding" Value="2" />
+            <Setter Property="Command" Value="{Binding BindKeyCommand}" />
+            <Setter Property="CommandParameter" Value="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" />
+            <Setter Property="Content" Value="{Binding Path=Tag, RelativeSource={RelativeSource Self}, Converter={StaticResource KeyCodeConverter}}" />
+        </Style>
+        <Style
+            x:Key="Keycap_1u"
+            BasedOn="{StaticResource StandardKeycap}"
+            TargetType="{x:Type Button}">
+            <Setter Property="Width" Value="48" />
+        </Style>
+        <Style
+            x:Key="Keycap_1.25u"
+            BasedOn="{StaticResource StandardKeycap}"
+            TargetType="{x:Type Button}">
+            <Setter Property="Width" Value="60" />
+        </Style>
+        <Style
+            x:Key="Keycap_1.5u"
+            BasedOn="{StaticResource StandardKeycap}"
+            TargetType="{x:Type Button}">
+            <Setter Property="Width" Value="72" />
+        </Style>
+        <Style
+            x:Key="Keycap_1.75u"
+            BasedOn="{StaticResource StandardKeycap}"
+            TargetType="{x:Type Button}">
+            <Setter Property="Width" Value="84" />
+        </Style>
+        <Style
+            x:Key="Keycap_2u"
+            BasedOn="{StaticResource StandardKeycap}"
+            TargetType="{x:Type Button}">
+            <Setter Property="Width" Value="96" />
+        </Style>
+        <Style
+            x:Key="Keycap_2.25u"
+            BasedOn="{StaticResource StandardKeycap}"
+            TargetType="{x:Type Button}">
+            <Setter Property="Width" Value="108" />
+        </Style>
+        <Style
+            x:Key="Keycap_2.5u"
+            BasedOn="{StaticResource StandardKeycap}"
+            TargetType="{x:Type Button}">
+            <Setter Property="Width" Value="120" />
+        </Style>
+        <Style
+            x:Key="Keycap_2.75u"
+            BasedOn="{StaticResource StandardKeycap}"
+            TargetType="{x:Type Button}">
+            <Setter Property="Width" Value="132" />
+        </Style>
+        <Style
+            x:Key="Keycap_0.5u"
+            BasedOn="{StaticResource StandardKeycap}"
+            TargetType="{x:Type Button}">
+            <Setter Property="Width" Value="24" />
+        </Style>
+        <Style
+            x:Key="Keycap_6.25u"
+            BasedOn="{StaticResource StandardKeycap}"
+            TargetType="{x:Type Button}">
+            <Setter Property="Width" Value="300" />
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Row="0" Grid.Column="0">
+                <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
+                    <Button Style="{StaticResource Keycap_1u}" Tag="0x1B" />
+                    <Button Style="{StaticResource Keycap_1u}" Visibility="Hidden" />
+                    <Button Style="{StaticResource Keycap_1u}" Tag="0x70" />
+                    <Button Style="{StaticResource Keycap_1u}" Tag="0x71" />
+                    <Button Style="{StaticResource Keycap_1u}" Tag="0x72" />
+                    <Button Style="{StaticResource Keycap_1u}" Tag="0x73" />
+                    <Button Style="{StaticResource Keycap_0.5u}" Visibility="Hidden" />
+                    <Button Style="{StaticResource Keycap_1u}" Tag="0x74" />
+                    <Button Style="{StaticResource Keycap_1u}" Tag="0x75" />
+                    <Button Style="{StaticResource Keycap_1u}" Tag="0x76" />
+                    <Button Style="{StaticResource Keycap_1u}" Tag="0x77" />
+                    <Button Style="{StaticResource Keycap_0.5u}" Visibility="Hidden" />
+                    <Button Style="{StaticResource Keycap_1u}" Tag="0x78" />
+                    <Button Style="{StaticResource Keycap_1u}" Tag="0x79" />
+                    <Button Style="{StaticResource Keycap_1u}" Tag="0x7A" />
+                    <Button Style="{StaticResource Keycap_1u}" Tag="0x7B" />
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Row="1" Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Orientation="Horizontal">
+                    <Border>
+                        <Button Style="{StaticResource Keycap_1u}" Tag="0xC0" />
+                    </Border>
+                    <Border>
+                        <Button Style="{StaticResource Keycap_1u}" Tag="0x31" />
+                    </Border>
+                    <Border>
+                        <Button Style="{StaticResource Keycap_1u}" Tag="0x32" />
+                    </Border>
+                    <Border>
+                        <Button Style="{StaticResource Keycap_1u}" Tag="0x33" />
+                    </Border>
+                    <Border>
+                        <Button Style="{StaticResource Keycap_1u}" Tag="0x34" />
+                    </Border>
+                    <Border>
+                        <Button Style="{StaticResource Keycap_1u}" Tag="0x35" />
+                    </Border>
+                    <Border>
+                        <Button Style="{StaticResource Keycap_1u}" Tag="0x36" />
+                    </Border>
+                    <Border>
+                        <Button Style="{StaticResource Keycap_1u}" Tag="0x37" />
+                    </Border>
+                    <Border>
+                        <Button Style="{StaticResource Keycap_1u}" Tag="0x38" />
+                    </Border>
+                    <Border>
+                        <Button Style="{StaticResource Keycap_1u}" Tag="0x39" />
+                    </Border>
+                    <Border>
+                        <Button Style="{StaticResource Keycap_1u}" Tag="0x30" />
+                    </Border>
+                    <Border>
+                        <Button Style="{StaticResource Keycap_1u}" Tag="0xBD" />
+                    </Border>
+                    <Border>
+                        <Button Style="{StaticResource Keycap_1u}" Tag="0xBB" />
+                    </Border>
+                    <Border>
+                        <Button Style="{StaticResource Keycap_2u}" Tag="0x08" />
+                    </Border>
+                </StackPanel>
+                <StackPanel Grid.Row="1" Orientation="Horizontal">
+                    <Border>
+                        <Button Style="{StaticResource Keycap_1.5u}" Tag="0x09" />
+                    </Border>
+                    <Border>
+                        <Button Style="{StaticResource Keycap_1u}" Tag="0x51" />
+                    </Border>
+                    <Border>
+                        <Button Style="{StaticResource Keycap_1u}" Tag="0x57" />
+                    </Border>
+                    <Border>
+                        <Button Style="{StaticResource Keycap_1u}" Tag="0x45" />
+                    </Border>
+                    <Border>
+                        <Button Style="{StaticResource Keycap_1u}" Tag="0x52" />
+                    </Border>
+                    <Border>
+                        <Button Style="{StaticResource Keycap_1u}" Tag="0x54" />
+                    </Border>
+                    <Border>
+                        <Button Style="{StaticResource Keycap_1u}" Tag="0x59" />
+                    </Border>
+                    <Border>
+                        <Button Style="{StaticResource Keycap_1u}" Tag="0x55" />
+                    </Border>
+                    <Border>
+                        <Button Style="{StaticResource Keycap_1u}" Tag="0x49" />
+                    </Border>
+                    <Border>
+                        <Button Style="{StaticResource Keycap_1u}" Tag="0x4F" />
+                    </Border>
+                    <Border>
+                        <Button Style="{StaticResource Keycap_1u}" Tag="0x50" />
+                    </Border>
+                    <Border>
+                        <Button Style="{StaticResource Keycap_1u}" Tag="0xDB" />
+                    </Border>
+                    <Border>
+                        <Button Style="{StaticResource Keycap_1u}" Tag="0xDD" />
+                    </Border>
+                    <Border>
+                        <Button Style="{StaticResource Keycap_1.5u}" Tag="0xDC" />
+                    </Border>
+                </StackPanel>
+                <StackPanel Grid.Row="2" Orientation="Horizontal">
+                    <Border>
+                        <Button Style="{StaticResource Keycap_1.75u}" Tag="0x14" />
+                    </Border>
+                    <Border>
+                        <Button Style="{StaticResource Keycap_1u}" Tag="0x41" />
+                    </Border>
+                    <Border>
+                        <Button Style="{StaticResource Keycap_1u}" Tag="0x53" />
+                    </Border>
+                    <Border>
+                        <Button Style="{StaticResource Keycap_1u}" Tag="0x44" />
+                    </Border>
+                    <Border>
+                        <Button Style="{StaticResource Keycap_1u}" Tag="0x46" />
+                    </Border>
+                    <Border>
+                        <Button Style="{StaticResource Keycap_1u}" Tag="0x47" />
+                    </Border>
+                    <Border>
+                        <Button Style="{StaticResource Keycap_1u}" Tag="0x48" />
+                    </Border>
+                    <Border>
+                        <Button Style="{StaticResource Keycap_1u}" Tag="0x4A" />
+                    </Border>
+                    <Border>
+                        <Button Style="{StaticResource Keycap_1u}" Tag="0x4B" />
+                    </Border>
+                    <Border>
+                        <Button Style="{StaticResource Keycap_1u}" Tag="0x4C" />
+                    </Border>
+                    <Border>
+                        <Button Style="{StaticResource Keycap_1u}" Tag="0xBA" />
+                    </Border>
+                    <Border>
+                        <Button Style="{StaticResource Keycap_1u}" Tag="0xBC" />
+                    </Border>
+                    <Border>
+                        <Button Style="{StaticResource Keycap_2.25u}" Tag="0x0D" />
+                    </Border>
+                </StackPanel>
+                <StackPanel Grid.Row="3" Orientation="Horizontal">
+                    <Border>
+                        <Button Style="{StaticResource Keycap_2.25u}" Tag="0xA0" />
+                    </Border>
+                    <Border>
+                        <Button Style="{StaticResource Keycap_1u}" Tag="0x5A" />
+                    </Border>
+                    <Border>
+                        <Button Style="{StaticResource Keycap_1u}" Tag="0x58" />
+                    </Border>
+                    <Border>
+                        <Button Style="{StaticResource Keycap_1u}" Tag="0x43" />
+                    </Border>
+                    <Border>
+                        <Button Style="{StaticResource Keycap_1u}" Tag="0x56" />
+                    </Border>
+                    <Border>
+                        <Button Style="{StaticResource Keycap_1u}" Tag="0x42" />
+                    </Border>
+                    <Border>
+                        <Button Style="{StaticResource Keycap_1u}" Tag="0x4E" />
+                    </Border>
+                    <Border>
+                        <Button Style="{StaticResource Keycap_1u}" Tag="0x4D" />
+                    </Border>
+                    <Border>
+                        <Button Style="{StaticResource Keycap_1u}" Tag="0xBC" />
+                    </Border>
+                    <Border>
+                        <Button Style="{StaticResource Keycap_1u}" Tag="0xBE" />
+                    </Border>
+                    <Border>
+                        <Button Style="{StaticResource Keycap_1u}" Tag="0xBF" />
+                    </Border>
+                    <Border>
+                        <Button Style="{StaticResource Keycap_2.75u}" Tag="0xA1" />
+                    </Border>
+                </StackPanel>
+                <StackPanel Grid.Row="4" Orientation="Horizontal">
+                    <Border>
+                        <Button Style="{StaticResource Keycap_1.25u}" Tag="0xA2" />
+                    </Border>
+                    <Border>
+                        <Button Style="{StaticResource Keycap_1.25u}" Tag="0x5B" />
+                    </Border>
+                    <Border>
+                        <Button Style="{StaticResource Keycap_1.25u}" Tag="0xA4" />
+                    </Border>
+                    <Border>
+                        <Button Style="{StaticResource Keycap_6.25u}" Tag="0x20" />
+                    </Border>
+                    <Border>
+                        <Button Style="{StaticResource Keycap_1.25u}" Tag="0xA5" />
+                    </Border>
+                    <Border>
+                        <Button
+                            IsEnabled="False"
+                            Style="{StaticResource Keycap_1.25u}"
+                            Tag="" />
+                    </Border>
+                    <Border>
+                        <Button Style="{StaticResource Keycap_1.25u}" Tag="0x5D" />
+                    </Border>
+                    <Border>
+                        <Button Style="{StaticResource Keycap_1.25u}" Tag="0xA3" />
+                    </Border>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Row="0" Grid.Column="1">
+                <StackPanel Margin="15,0,0,10" Orientation="Horizontal">
+                    <Button Style="{StaticResource Keycap_1u}" Tag="0x2C" />
+                    <Button Style="{StaticResource Keycap_1u}" Tag="0x91" />
+                    <Button Style="{StaticResource Keycap_1u}" Tag="0x13" />
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Row="1" Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <StackPanel
+                    Grid.Row="0"
+                    Margin="15,0,0,0"
+                    Orientation="Horizontal">
+                    <Border>
+                        <Button Style="{StaticResource Keycap_1u}" Tag="0x2D" />
+                    </Border>
+                    <Border>
+                        <Button Style="{StaticResource Keycap_1u}" Tag="0x24" />
+                    </Border>
+                    <Border>
+                        <Button Style="{StaticResource Keycap_1u}" Tag="0x21" />
+                    </Border>
+                </StackPanel>
+                <StackPanel
+                    Grid.Row="1"
+                    Margin="15,0,0,0"
+                    Orientation="Horizontal">
+                    <Border>
+                        <Button Style="{StaticResource Keycap_1u}" Tag="0x2E" />
+                    </Border>
+                    <Border>
+                        <Button Style="{StaticResource Keycap_1u}" Tag="0x23" />
+                    </Border>
+                    <Border>
+                        <Button Style="{StaticResource Keycap_1u}" Tag="0x22" />
+                    </Border>
+                </StackPanel>
+                <StackPanel
+                    Grid.Row="3"
+                    Margin="15,0,0,0"
+                    Orientation="Horizontal">
+                    <Border Background="{x:Null}">
+                        <Button Style="{StaticResource Keycap_1u}" Visibility="Hidden" />
+                    </Border>
+                    <Border>
+                        <Button Style="{StaticResource Keycap_1u}" Tag="0x26" />
+                    </Border>
+                    <Border Background="{x:Null}">
+                        <Button Style="{StaticResource Keycap_1u}" Visibility="Hidden" />
+                    </Border>
+                </StackPanel>
+                <StackPanel
+                    Grid.Row="4"
+                    Margin="15,0,0,0"
+                    Orientation="Horizontal">
+                    <Border>
+                        <Button Style="{StaticResource Keycap_1u}" Tag="0x25" />
+                    </Border>
+                    <Border>
+                        <Button Style="{StaticResource Keycap_1u}" Tag="0x28" />
+                    </Border>
+                    <Border>
+                        <Button Style="{StaticResource Keycap_1u}" Tag="0x27" />
+                    </Border>
+                </StackPanel>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="1">
+            <DockPanel Margin="10">
+                <TextBlock DockPanel.Dock="Top" Text="Test" />
+                <TextBox Height="50" />
+            </DockPanel>
+        </Grid>
+    </Grid>
+</UserControl>

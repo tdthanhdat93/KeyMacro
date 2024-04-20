@@ -67,6 +67,12 @@ namespace KeyMacroApp.ViewModels
         {
             get => _replayCommand ??= new DelegateCommand(OnReplayKeyHooked).ObservesCanExecute(() => CanExecuteMacroCommand);
         }
+
+        private DelegateCommand? _renameCommand = null;
+        public DelegateCommand RenameCommand { get => _renameCommand ??= new DelegateCommand(OnRename); }
+
+        private DelegateCommand? _deleteCommand = null;
+        public DelegateCommand DeleteCommand { get => _deleteCommand ??= new DelegateCommand(OnDelete); }
         #endregion
 
         private string _recordState = string.Empty;
@@ -76,9 +82,12 @@ namespace KeyMacroApp.ViewModels
             set => SetProperty(ref _recordState, value);
         }
 
+        public Action? ActionMacroDeleted { get; set; }
+
         public MacroViewModel()
         {
             _hookDelegate = new HookDelegateManaged(HandlerKeyHook);
+            MacroAllData?.ClearSelectStatus();
         }
 
         private void OnSelectMacro(object info)
@@ -130,7 +139,7 @@ namespace KeyMacroApp.ViewModels
                 var groups = macroGroup?.SubGroups;
                 if (groups != null)
                 {
-                    var newGroup = new MacroGroup(GenerateNewName(groups), parent: macroGroup);;
+                    var newGroup = new MacroGroup(GenerateNewName(groups), parent: macroGroup); ;
                     DoAddGroup(groups, newGroup);
                 }
             }
@@ -226,6 +235,37 @@ namespace KeyMacroApp.ViewModels
             {
                 Debug.Print($"[Error]: MacroViewModel.OnReplayKeyHooked()\n {ex}");
             }
+        }
+
+        private void OnRename()
+        {
+            if (SelectedItem is MacroGroup selectedGroup)
+            {
+                selectedGroup.IsInEditMode = true;
+            }
+            if (SelectedItem is MacroInfo selectedInfo)
+            {
+                selectedInfo.IsInEditMode = true;
+            }
+        }
+
+        private void OnDelete()
+        {
+            if (SelectedItem is MacroGroup selectedGroup)
+            {
+                selectedGroup.Delete();
+                var groups = selectedGroup.Parent?.SubGroups ?? MacroAllData?.SubGroups;
+                groups?.Remove(selectedGroup);
+            }
+
+            if (SelectedItem is MacroInfo selectedInfo)
+            {
+                selectedInfo.Delete();
+                var infos = selectedInfo.Parent?.MacroInfos ?? MacroAllData?.MacroInfos;
+                infos?.Remove(selectedInfo);
+            }
+
+            ActionMacroDeleted?.Invoke();
         }
     }
 }

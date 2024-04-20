@@ -13,37 +13,19 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Converter\**" />
     <Compile Remove="Resources\**" />
-    <Compile Remove="Services\**" />
-    <Compile Remove="UIControl\**" />
-    <EmbeddedResource Remove="Converter\**" />
     <EmbeddedResource Remove="Resources\**" />
-    <EmbeddedResource Remove="Services\**" />
-    <EmbeddedResource Remove="UIControl\**" />
-    <None Remove="Converter\**" />
     <None Remove="Resources\**" />
-    <None Remove="Services\**" />
-    <None Remove="UIControl\**" />
-    <Page Remove="Converter\**" />
     <Page Remove="Resources\**" />
-    <Page Remove="Services\**" />
-    <Page Remove="UIControl\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="Models\BindKeyInfo.cs" />
-    <Compile Remove="ViewModels\BindKeyDialogViewModel.cs" />
-    <Compile Remove="ViewModels\BindKeyViewModel.cs" />
+    <Compile Remove="Converter\ProfileConverter.cs" />
     <Compile Remove="ViewModels\ProfileViewModel.cs" />
-    <Compile Remove="Views\BindKeyDialog.xaml.cs" />
-    <Compile Remove="Views\BindKeyView.xaml.cs" />
     <Compile Remove="Views\ProfileView.xaml.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <Page Remove="Views\BindKeyDialog.xaml" />
-    <Page Remove="Views\BindKeyView.xaml" />
     <Page Remove="Views\ProfileView.xaml" />
   </ItemGroup>
 

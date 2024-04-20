@@ -1,0 +1,50 @@
+﻿<Window
+    x:Class="KeyMacroApp.Views.BindKeyDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="clr-namespace:KeyMacroApp.Models"
+    xmlns:prism="http://prismlibrary.com/"
+    xmlns:viewmodels="clr-namespace:KeyMacroApp.ViewModels"
+    xmlns:views="clr-namespace:KeyMacroApp.Views"
+    Title="{Binding Title}"
+    Width="800"
+    Height="450"
+    d:DataContext="{d:DesignInstance Type=viewmodels:BindKeyDialogViewModel}"
+    prism:ViewModelLocator.AutoWireViewModel="False"
+    Closed="Window_Closed"
+    Loaded="Window_Loaded"
+    SizeToContent="WidthAndHeight"
+    WindowStartupLocation="CenterOwner"
+    mc:Ignorable="d">
+    <Grid Width="Auto" Height="Auto">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <WrapPanel Margin="10,5">
+            <TextBlock Margin="5,0,0,0" Text="Current bind:" />
+            <TextBlock Margin="5,0,0,0" Text="{Binding CurrentMacroName}" />
+        </WrapPanel>
+        <views:MacroView Grid.Row="1" Margin="10,5" DataContext="{Binding MacroViewModel}" />
+        <DockPanel Grid.Row="3" LastChildFill="False" Margin="10,5">
+            <Button
+                Margin="5"
+                Command="{Binding CancelCommand}"
+                Content="Cancel"
+                DockPanel.Dock="Right" />
+            <Button
+                Margin="5"
+                Command="{Binding ApplyCommand}"
+                Content="OK"
+                DockPanel.Dock="Right" />
+            <Button
+                Margin="5"
+                Command="{Binding ResetCommand}"
+                Content="Reset" />
+        </DockPanel>
+    </Grid>
+</Window>
