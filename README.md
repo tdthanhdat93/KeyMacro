@@ -24,12 +24,12 @@ It consists of 3 modules:
 1. By default, the project build output at folder `Bin`
 2. Run app `KeyMacroApp.exe`
 3. First need to add new profile
-   - ![image](https://github.com/tdthanhdat93/KeyMacro/assets/104155665/4b2fafa8-04d9-4394-b47d-be1261ff6773)
-   - ![image](https://github.com/tdthanhdat93/KeyMacro/assets/104155665/9c68016a-5359-481c-90f9-001f25355005)
-   - ![image](https://github.com/tdthanhdat93/KeyMacro/assets/104155665/ba4800b9-9416-4aec-8e88-f8e571d73909)
-4. Select keyboard button to bind macro
-   - ![image](https://github.com/tdthanhdat93/KeyMacro/assets/104155665/a4f1b4c7-42f5-4341-8404-04dcbfba2e32)
-   - ![image](https://github.com/tdthanhdat93/KeyMacro/assets/104155665/a6ad8f18-5008-427a-a6c7-b17eeff7cb9b)
+   ![image](https://github.com/tdthanhdat93/KeyMacro/assets/104155665/8b709837-9e79-409c-8c51-f1981105d16e)
+   
+4. Select keyboard button to bind macro</br>
+   ![image](https://github.com/tdthanhdat93/KeyMacro/assets/104155665/adc778da-79de-49c8-a062-e90b2c1e7a8b)
+   ![image](https://github.com/tdthanhdat93/KeyMacro/assets/104155665/df281317-5176-4f6c-a36c-4377a666f4b1)
+   ![image](https://github.com/tdthanhdat93/KeyMacro/assets/104155665/a25504c4-9d90-457b-b5de-4045907607a4)
 
 
    
