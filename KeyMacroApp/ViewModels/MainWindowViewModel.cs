@@ -1,5 +1,6 @@
 ﻿using Prism.Commands;
 using Prism.Mvvm;
+using ServiceKeyHookWrapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,7 @@ namespace KeyMacroApp.ViewModels
     {
         public MainWindowViewModel()
         {
+            APIWrapper.StartHook();
         }
     }
 }

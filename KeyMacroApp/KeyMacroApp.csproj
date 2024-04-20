@@ -13,22 +13,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Common\**" />
     <Compile Remove="Converter\**" />
     <Compile Remove="Resources\**" />
     <Compile Remove="Services\**" />
     <Compile Remove="UIControl\**" />
-    <EmbeddedResource Remove="Common\**" />
     <EmbeddedResource Remove="Converter\**" />
     <EmbeddedResource Remove="Resources\**" />
     <EmbeddedResource Remove="Services\**" />
     <EmbeddedResource Remove="UIControl\**" />
-    <None Remove="Common\**" />
     <None Remove="Converter\**" />
     <None Remove="Resources\**" />
     <None Remove="Services\**" />
     <None Remove="UIControl\**" />
-    <Page Remove="Common\**" />
     <Page Remove="Converter\**" />
     <Page Remove="Resources\**" />
     <Page Remove="Services\**" />
@@ -52,13 +48,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="Common\XmlHelper.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.31" />
     <PackageReference Include="Prism.Unity" Version="8.1.97" />
     <PackageReference Include="Prism.Wpf" Version="8.1.97" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ServiceKeyHookWrapper\ServiceKeyHookWrapper.vcxproj" />
   </ItemGroup>
 
 </Project>

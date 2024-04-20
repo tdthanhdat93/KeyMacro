@@ -42,7 +42,10 @@
                         Content="Add Group"
                         DockPanel.Dock="Right" />
                 </DockPanel>
-                <TreeView Grid.Row="1">
+                <TreeView
+                    Grid.Row="1"
+                    ItemsSource="{Binding MacroAllData.Items}"
+                    PreviewMouseRightButtonDown="TreeView_PreviewMouseRightButtonDown">
                     <TreeView.Resources>
                         <HierarchicalDataTemplate DataType="{x:Type models:MacroGroup}" ItemsSource="{Binding Items}">
                             <TextBlock Text="{Binding Name}" />
@@ -92,7 +95,10 @@
                         <ToggleButton
                             Margin="5"
                             HorizontalAlignment="Left"
+                            Command="{Binding RecordCommand}"
+                            CommandParameter="{Binding IsChecked, RelativeSource={RelativeSource Self}}"
                             Content="Record Key" />
+                        <TextBlock Margin="5" Text="{Binding RecordState}" />
                     </WrapPanel>
                     <ListBox Height="150" ItemsSource="{Binding SelectedMacro.KeyHooks}">
                         <ListBox.Resources>
@@ -109,6 +115,8 @@
                     <Button
                         Margin="5"
                         HorizontalAlignment="Left"
+                        Click="ButtonReplay_Click"
+                        Command="{Binding ReplayCommand}"
                         Content="Replay" />
                     <TextBox
                         x:Name="txtbxReplay"

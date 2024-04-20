@@ -33,6 +33,18 @@ static LRESULT ServiceKeyHookAPI::KeyboardProc(int nCode, WPARAM wParam, LPARAM 
 	if (nCode == HC_ACTION)
 	{
 		KBDLLHOOKSTRUCT* info = (KBDLLHOOKSTRUCT*)lParam;
+		if (_cbRecord != nullptr)
+		{
+			try
+			{
+				_cbRecord(*info);
+			}
+			catch(...)
+			{ 
+				OutputDebugString(L"Exception on _cbRecord(*info)");
+			}
+			return CallNextHookEx(NULL, nCode, wParam, lParam);
+		}
 
 		if (wParam == WM_KEYDOWN && !IsInjectedKey(info->flags))
 		{
@@ -63,4 +75,22 @@ static BOOL ServiceKeyHookAPI::InjectKey(DWORD keyCode)
 		return TRUE;
 	}
 	return FALSE;
+}
+
+void __stdcall ServiceKeyHookAPI::RegisterRecordKey(HookCallback cbRecord)
+{
+	ServiceKeyHookAPI::_cbRecord = cbRecord;
+}
+
+void ServiceKeyHookAPI::UnRegisterRecordKey()
+{
+	ServiceKeyHookAPI::_cbRecord = nullptr;
+}
+
+SERVICEKEYHOOK_API void __stdcall ServiceKeyHookAPI::ReplayKeys(std::vector<INPUT>& keyInputs)
+{
+	for (auto& input : keyInputs)
+	{
+		UINT uSent = SendInput(1, &input, sizeof(INPUT));
+	}
 }

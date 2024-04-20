@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KeyMacroApp.Common;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -30,6 +31,21 @@ namespace KeyMacroApp.Views
         private void MacroView_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             Debug.Print($"MacroView_DataContextChanged -> {e.NewValue?.GetType()}");
+        }
+
+        private void ButtonReplay_Click(object sender, RoutedEventArgs e)
+        {
+            txtbxReplay.Focus();
+        }
+
+        private void TreeView_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            var treeViewItem = ControlHelper.FindAncestor<TreeViewItem>(e.OriginalSource as DependencyObject);
+            if (treeViewItem != null)
+            {
+                treeViewItem.IsSelected = true;
+                treeViewItem.Focus();
+            }
         }
     }
 }

@@ -57,6 +57,14 @@ namespace KeyMacroApp.Models
         [XmlElement]
         public ObservableCollection<KeyHook>? KeyHooks { get => _keyHooks; set => _keyHooks = value; }
 
+        private bool _isSelected = false;
+        [XmlIgnore]
+        public bool IsSelected
+        {
+            get => _isSelected;
+            set => SetProperty(ref _isSelected, value);
+        }
+
         public MacroInfo() { }
 
         public MacroInfo(string name, MacroGroup? parent = null)
@@ -96,6 +104,11 @@ namespace KeyMacroApp.Models
             {
                 Debug.Print($"[Error]: MacroInfo.ChangeFilePath()\n{e}");
             }
+        }
+
+        public void Save()
+        {
+            XmlSerializerHelper<MacroInfo>.Save(Path, this);
         }
 
         public static MacroInfo? Load(string path, MacroGroup? parent = null)
@@ -140,6 +153,13 @@ namespace KeyMacroApp.Models
         public MacroGroup? Parent { get; set; }
         public ObservableCollection<MacroGroup> SubGroups { get; set; } = new ObservableCollection<MacroGroup>();
         public ObservableCollection<MacroInfo> MacroInfos { get; set; } = new ObservableCollection<MacroInfo>();
+
+        private bool _isSelected = false;
+        public bool IsSelected
+        {
+            get => _isSelected;
+            set => SetProperty(ref _isSelected, value);
+        }
 
         public IEnumerable<object> Items
         {

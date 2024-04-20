@@ -21,6 +21,6 @@
         </Style>
     </Window.Resources>
     <Grid Width="Auto" Height="Auto">
-        <views:MacroView />
+        <views:MacroView Margin="15" />
     </Grid>
 </Window>
